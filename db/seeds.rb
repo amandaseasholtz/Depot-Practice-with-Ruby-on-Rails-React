@@ -1,11 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
 #---
 # Excerpted from "Agile Web Development with Rails 5.1",
 # published by The Pragmatic Bookshelf.
@@ -29,7 +21,8 @@ Product.create!(title: 'Rails, Angular, Postgres, and Bootstrap',
       and learn to use these technologies effectively in a Ruby on Rails
       environment.
       </p>},
-  image_url: 'dcbang.jpg',    
+      
+  image_tag(product.image_url: open('app/assets/images/dcbang.jpg')),  
   price: 45.00)
 # . . .
 Product.create!(title: 'Seven Mobile Apps in Seven Weeks',
@@ -42,7 +35,7 @@ Product.create!(title: 'Seven Mobile Apps in Seven Weeks',
       experienced developer needing to expand your options. Plus, you’ll find
       out which cross-platform solution makes the most sense for your needs.
       </p>},
-  image_url: '7apps.jpg',
+  image_tag(product.image_url: open('app/assets/images/7apps.jpg')),
   price: 26.00)
 # . . .
 
@@ -59,5 +52,5 @@ Product.create!(title: 'Ruby Performance Optimization',
       all those “hard” things aren’t so difficult after all, and your code
       will run orders of magnitude faster.
       </p>},
-  image_url: 'adrpo.jpg',
+  image_tag(image_url: open('app/assets/images/adrpo.jpg')),
   price: 46.00)

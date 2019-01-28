@@ -11,8 +11,10 @@
 </p>
 
 <p>
+
+
   <strong>Image url:</strong>
-  <%= image_tag product.image_url, width: '100%' if product.image.present? %>
+  <%= image_tag(@product.image_url.url, width: 600) if @product.image_url.present? %>
 </p>
 
 <p>
