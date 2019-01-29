@@ -30,7 +30,10 @@
         @media (min-width: 30em) {
             display: block;
             img {
-                height: 11.3em;
+                
+                max-width: 500px;
+                width: 50%;
+                height: auto;
             }
         }
     }

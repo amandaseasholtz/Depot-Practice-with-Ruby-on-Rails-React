@@ -1,6 +1,25 @@
+<style>
+            body {
+                font-size: 2em;
+            }
+            h1 {
+                color: coral;
+            }
+            #intro {
+                font-size: 1.3em;
+                color: orange;
+            }
+            .colorful {
+                color: orange;
+            }
+            #image_style {
+            
+          }
+            
+</style>
 <p id="notice"><%= notice %></p>
 
-<p>
+<p id ="intro"
   <strong>Title:</strong>
   <%= @product.title %>
 </p>
@@ -10,16 +29,14 @@
   <%= @product.description %>
 </p>
 
-<p>
-
-
-  <strong>Image url:</strong>
+<p id ="image_style"
+  <strong>Image:</strong>
   <%= image_tag(@product.image_url.url, width: 600) if @product.image_url.present? %>
 </p>
 
 <p>
   <strong>Price:</strong>
-  <%= @product.price %>
+  <%= number_to_currency(@product.price) %>
 </p>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |

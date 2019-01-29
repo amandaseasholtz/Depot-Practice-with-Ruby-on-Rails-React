@@ -20,9 +20,11 @@
  header.main {
     text-align: center; // center on mobile
     @media (min-width: 30em) {
-        text-align: left; // left align on desktop
+        padding-left: 2em;
+        padding-bottom: 1em;
+        text-align: left; // align on desktop
     }
-    background: #282;
+    background:steelblue;
     margin: 0;
     h1 {
         display: none;
@@ -37,18 +39,21 @@
         flex-direction: column; // mobile is horizontally laid out
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
+        max-width: 700px;
+        width: 50%;
+        height: auto;
 
-        @media (min-width: 30em) {
+        @media (min-width: 40em) {
             flex-direction: row; // desktop is vertically laid out
             -webkit-box-orient: horizontal;
         }
         
         nav {
             padding-bottom: 1em;
-            background: #141;
+            background:aquamarine;  
             text-align: center; // mobile has centered nav
             @media (min-width: 30em) {
-                text-align: left; // desktop nav is left-aligned
+                text-align: center; // desktop nav is left-aligned
                 padding: 1em; // and needs more padding
             }
 
@@ -56,21 +61,29 @@
                 list-style: none;
                 margin: 0;
                 padding: 0;
-                @media (min-width: 30em) {
-                padding-right: 1em; // give desktop some extra space
+                @media (min-width: 35em) {
+                padding-right: 2em; // give desktop some extra space
                 }
                 li {
                     margin: 0;
                     padding: 0.5em;
-                    text-transform: uppercase;
-                    letter-spacing: 0.354em;
+                    text-transform: small-caps;
+                    letter-spacing: 0.3em;
                 a {
-                    color: #bfb;
+                    color:darkblue;
                     text-decoration: none;
+                    
+                    font-size: 30px;
+                    transition: 0.6s;
                 }
                 a:hover {
                     background: none;
+                    background-color:mediumaquamarine ;
                     color: white;
+                    color:crimson;
+                    font-weight: bold;
+                    font-size: 31px;
+                    text-decoration: underline;
                 }
             }
         }

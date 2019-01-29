@@ -2,16 +2,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .store {
-    max-width: 80em;
+    max-width: 2000em;
     ul.catalog {
         border-top: solid 0.250em;
         list-style: none;
         padding: 0;
         margin: 0;
+        
         li {
             padding: 1em;
             margin: 0;
-            border-bottom: solid thin #ddd;
+            border-bottom: solid thin #aaa;
+            box-sizing: content-box; 
+            width: 750px;
+            height: 320px;
+           
             // This makes sure our <li> has enough height
             // to hold the entire image, since it's floated
             &::after {
@@ -20,11 +25,15 @@
                 display: block;
             }
             img {
-                float: left;
+                float: right;
                 padding: 1em;
                 margin-right: 1em;
                 margin-bottom: 1em;
                 box-shadow: 0.176em 0.176em 0.354em 0px rgba(0,0,0,0.75);
+                max-width: 200px;
+                width: 50%;
+                height: auto;
+                display: block;
             }
             .price {
                 font-size: 1.414em;
