@@ -1,3 +1,17 @@
+<style>
+            
+            #image {
+              font-size: 1em;
+              length 10em;
+              width: auto;
+            }
+            #wide{
+              width : 100em;
+            }
+</style>
+
+
+
 <% if notice %>
   <aside id="notice"><%= notice %></aside>
 <% end %>
@@ -16,19 +30,22 @@
   <tbody>
     <% @products.each do |product| %>
       <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
-      
-      <td class="image">
 
-        <%= image_tag product.image_url.url, width: '100%', height: '100%' if product.image_url.present? %>
+     
+      <td style="image">
+        <%= image_tag product.image_url.url if product.image_url.present? %>
       </td>
+   
 
       <td class="description">
+     
         <h1><%= product.title %></h1>
           <p>
             <%= truncate(strip_tags(product.description),
                   length: 80) %>
           </p>
         </td>
+        
 
         <td class="actions">
           <ul>

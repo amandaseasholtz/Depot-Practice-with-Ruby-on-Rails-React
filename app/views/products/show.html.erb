@@ -4,17 +4,18 @@
             }
             h1 {
                 color: coral;
+                paddingBottom = "50px";
+                line-height: 6.8;
             }
             #intro {
-                font-size: 1.3em;
+                font-size: 1.0em;
                 color: orange;
+                paddingBottom = "1px";
+                line-height: 1.1;
             }
-            .colorful {
-                color: orange;
+            #price_style {
+              font-size: 1em;
             }
-            #image_style {
-            
-          }
             
 </style>
 <p id="notice"><%= notice %></p>
@@ -26,15 +27,15 @@
 
 <p>
   <strong>Description:</strong>
-  <%= @product.description %>
+  <%= sanitize @product.description %>
 </p>
 
 <p id ="image_style"
   <strong>Image:</strong>
-  <%= image_tag(@product.image_url.url, width: 600) if @product.image_url.present? %>
+  <%= image_tag(@product.image_url.url, width: 250) if @product.image_url.present? %>
 </p>
 
-<p>
+<p id = "price_style"
   <strong>Price:</strong>
   <%= number_to_currency(@product.price) %>
 </p>

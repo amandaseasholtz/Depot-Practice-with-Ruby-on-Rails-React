@@ -22,7 +22,7 @@ Product.create!(title: 'Rails, Angular, Postgres, and Bootstrap',
       environment.
       </p>},
       
-  image_tag(product.image_url: open('app/assets/images/dcbang.jpg')),  
+  image_url: open('app/assets/images/dcbang.jpg'),  
   price: 45.00)
 # . . .
 Product.create!(title: 'Seven Mobile Apps in Seven Weeks',
@@ -35,7 +35,7 @@ Product.create!(title: 'Seven Mobile Apps in Seven Weeks',
       experienced developer needing to expand your options. Plus, you’ll find
       out which cross-platform solution makes the most sense for your needs.
       </p>},
-  image_tag(product.image_url: open('app/assets/images/7apps.jpg')),
+ image_url: open('app/assets/images/7apps.jpg'),
   price: 26.00)
 # . . .
 
@@ -52,5 +52,5 @@ Product.create!(title: 'Ruby Performance Optimization',
       all those “hard” things aren’t so difficult after all, and your code
       will run orders of magnitude faster.
       </p>},
-  image_tag(image_url: open('app/assets/images/adrpo.jpg')),
+  image_url: open('app/assets/images/adrpo.jpg'),
   price: 46.00)
