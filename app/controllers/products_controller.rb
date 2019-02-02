@@ -54,9 +54,10 @@ class ProductsController < ApplicationController
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
-    @product.destroy
-    respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
+    # if @product.destroy
+      message = @product.destroy ? "Successfully deleted" : "Did not delete - in a cart"
+      respond_to do |format|
+      format.html { redirect_to products_url, notice: message }
       format.json { head :no_content }
     end
   end
