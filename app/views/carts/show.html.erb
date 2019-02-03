@@ -6,4 +6,6 @@
     <% @cart.line_items.each do |item| %>
     <li><%= item.product.title %></li>
     <% end %>
+    <br>
+    <li> <%= link_to 'Back to Catalog', store_index_path %> </li>
 </ul>
