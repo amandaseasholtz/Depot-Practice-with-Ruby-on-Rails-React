@@ -9,12 +9,6 @@
 
 <h1>Your Pragmatic Catalog</h1>
 
-<%= content_tag :div,
-    id: "hello_react",
-    data: @products.to_json do %>
-        <%= javascript_pack_tag 'hello_react' %>
-    <% end %>
-
 <ul class="catalog">
     <% cache @products do %>
         <% @products.each do |product| %>
