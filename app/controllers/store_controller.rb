@@ -3,7 +3,7 @@ class StoreController < ApplicationController
   before_action :set_cart
  
   def index
-    @products = Product.order(:title)
+    @products = Product.order(:popularity).reverse_order
     @counter = session_counter
   end 
   def session_counter  
@@ -13,7 +13,7 @@ class StoreController < ApplicationController
       session[:counter]+=1
     end 
 
-    if session[:counter] >= 5
+    if session[:counter] > 5
         flash.notice = "You have been here #{session[:counter]} 
           times. Please go ahead and buy something "
       render:index
