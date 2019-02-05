@@ -2,6 +2,11 @@
     <aside id="notice"><%=notice %></aside>
 <% end %>
 
+<div class = "container">
+<% if flash[:index]%>
+<div class = "notice"> <%flash[:index]%></div>
+<% end %>
+
 <h1>Your Pragmatic Catalog</h1>
 
 <ul class="catalog">
