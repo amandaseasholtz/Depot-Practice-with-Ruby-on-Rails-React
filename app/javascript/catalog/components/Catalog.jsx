@@ -30,8 +30,5 @@ export default class Catalog extends React.Component {
                 </div>
             </div>
           ); 
-
-
     };
-    
 }   
