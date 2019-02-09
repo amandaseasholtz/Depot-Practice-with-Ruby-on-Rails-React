@@ -7,8 +7,13 @@ ruby '2.6.0'
 gem 'rails', '~> 5.2.2'
 # Use sqlite3 as the database for Active Record
 group :development do
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.3.6'
 end
+
+gem "jquery-rails"
+gem "bootstrap", "~> 4.2.1"
+gem "font-awesome-rails"
+
 gem 'carrierwave'
 gem 'carrierwave-aws'
 gem 'mini_magick'
