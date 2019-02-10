@@ -26,9 +26,7 @@ export default class Book extends React.Component {
         <td dangerouslySetInnerHTML={{__html: this.props.book.description}}></td>
         <td>{this.props.book.price}</td>
         <td>{Number(this.props.book.popularity)}</td>      
-        // Now, finally, add an "Add to Cat" button at the end 
-        // of each book entry. A click on it will call the handleAddToCart
-        // function above.
+       
         <td>
           <a className="btn btn-success"
             onClick={this.handleAddToCart} >

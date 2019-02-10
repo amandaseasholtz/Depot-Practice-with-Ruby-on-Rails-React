@@ -1,4 +1,6 @@
 class LineItemsController < ApplicationController
+
+  skip_before_action :verify_authenticity_token
   include CurrentCart
   before_action :set_cart, only: [:create]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
@@ -37,7 +39,7 @@ class LineItemsController < ApplicationController
         product.update_attribute(:popularity, product.popularity)
         
         format.html { redirect_to @line_item.cart, notice: 'Line item was successfully created.' }
-        format.json { render :show, status: :created, location: @line_item }
+        format.json { redirect_to cart_path(@line_item.cart)}
       else
         format.html { render :new }
         format.json { render json: @line_item.errors, status: :unprocessable_entity }
