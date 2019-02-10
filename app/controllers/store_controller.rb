@@ -5,9 +5,17 @@ class StoreController < ApplicationController
   def index
     @products = Product.order(:popularity).reverse_order
     @counter = session_counter
-
-    
   end 
+  private 
+    def sort_by
+       %w(title
+          price
+          popularity).include?(params[:sort_by]) ? params[:sort_by] : 'popularity'
+    end
+    def order
+       %w(asc desc).include?(params[:order]) ? params[:order] : 'asc'
+    end
+    
   def session_counter  
     if session[:counter].nil?
       session[:counter] = 0
@@ -30,7 +38,7 @@ class StoreController < ApplicationController
              render 'index'
           end
       }
-      format.json {render json: @products}
+      format.json {render json: Product.order(sort_by + ' ' + order)}
   end
     
   end

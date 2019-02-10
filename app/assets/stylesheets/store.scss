@@ -5,6 +5,9 @@
 @import "font-awesome";
 
 .store {
+    th.sortable {
+        cursor: pointer;
+    }
     max-width: 2000em;
     ul.catalog {
         border-top: solid 0.250em;
