@@ -22,7 +22,7 @@ class StoreController < ApplicationController
     else
       session[:counter]+=1
     end 
-
+ 
     if session[:counter] > 5
         flash.notice = "You have been here #{session[:counter]} 
           times. Please go ahead and buy something "
