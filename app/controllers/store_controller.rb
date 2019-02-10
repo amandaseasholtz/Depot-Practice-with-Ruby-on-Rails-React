@@ -6,6 +6,10 @@ class StoreController < ApplicationController
     @products = Product.order(:popularity).reverse_order
     @counter = session_counter
   end 
+  def search
+    products = Product.where("title LIKE '%#{params[:query]}%'")
+    render json: products
+  end
   private 
     def sort_by
        %w(title

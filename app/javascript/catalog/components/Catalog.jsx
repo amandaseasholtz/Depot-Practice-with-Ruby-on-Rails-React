@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import BookList from './BookList';
+import SearchForm from './SearchForm';
 
 export default class Catalog extends React.Component {
 
@@ -43,15 +44,29 @@ export default class Catalog extends React.Component {
             });
     };
 
+    handleSearch = (books) => {
+        this.setState({ books: books });
+    };
+
+    // Add a new function to handle "Add to Cart"
+    // This function will be modified later in section 3.3.2.
+    handleAddToCart = (id) => {
+        console.log(id);
+    }; 
+
     render = () => {
 
         return (
             <div className="container">
                 <div className="row">
+                <div className="row">
+                    <SearchForm handleSearch={this.handleSearch} />
+                </div>
                     <BookList books={this.state.books}
-                        sort={this.state.sort}
+                        sort ={this.state.sort}
                         order={this.state.order}
-                        handleSortColumn={this.handleSortColumn} />
+                        handleSortColumn={this.handleSortColumn}
+                        handleAddToCart={this.handleAddToCart} />
                 </div>
             </div>
         );

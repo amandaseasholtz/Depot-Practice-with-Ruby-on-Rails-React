@@ -6,13 +6,23 @@ export default class BookList extends React.Component {
   handleSortColumn = (name, order) => {
     this.props.handleSortColumn(name, order);
   };
+
+  // Add a new function to handle "Add to Cart"
+  // All it does is that it calls the handleAddToCart function
+  // in the Catalog component
+  handleAddToCart = (id) =>{
+    this.props.handleAddToCart(id);
+  }; 
+
   render = () => {
     var books = [];
 
-    this.props.books.forEach(function (book) {
+    var self = this;
+    this.props.books.forEach(function(book) {
       books.push(<Book book={book}
-        key={'book' + book.id} />);
-    }
+                       key={'book' + book.id}
+                       handleAddToCart={self.handleAddToCart} />);
+      }
     );
 
     return (
@@ -48,6 +58,7 @@ export default class BookList extends React.Component {
                 handleSortColumn={this.handleSortColumn}
               />
             </th>
+            <th scope="col">Actions</th> 
           </tr>
         </thead>
         <tbody>
