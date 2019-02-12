@@ -42,7 +42,7 @@ export default class BookList extends React.Component {
             <th scope="col">Description</th>
             <th scope="col" className="sortable">
               <SortColumn
-                name="title"
+                name="price"
                 text="Price"
                 sort={this.props.sort}
                 order={this.props.order}
@@ -51,7 +51,7 @@ export default class BookList extends React.Component {
             </th>
             <th scope="col" className="sortable">
               <SortColumn
-                name="title"
+                name="popularity"
                 text="Popularity"
                 sort={this.props.sort}
                 order={this.props.order}
