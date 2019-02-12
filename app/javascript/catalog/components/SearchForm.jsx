@@ -24,7 +24,7 @@ export default class SearchForm extends React.Component {
       <input onChange={this.handleSearch}
              type="text"
              className="form-control"
-             placeholder="Type the title of the book you are searching here..."
+             placeholder="Search a book here"
              ref="query" />
     )
   }
