@@ -71,7 +71,6 @@ export default class Catalog extends React.Component {
         return (
             <div className="container">
                 <div className="row">
-                <div className="row">
                     <SearchForm handleSearch={this.handleSearch} />
                 </div>
                     <BookList books={this.state.books}
@@ -80,7 +79,7 @@ export default class Catalog extends React.Component {
                         handleSortColumn={this.handleSortColumn}
                         handleAddToCart={this.handleAddToCart} />
                 </div>
-            </div>
+           
         );
     };
 }   

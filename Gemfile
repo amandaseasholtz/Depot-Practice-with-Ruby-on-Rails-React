@@ -10,9 +10,9 @@ group :development do
   gem 'sqlite3', '~> 1.3.6'
 end
 
-gem "jquery-rails"
-gem "bootstrap", "~> 4.2.1"
-gem "font-awesome-rails"
+gem 'jquery-rails'
+gem 'bootstrap', '~> 4.2.1'
+gem 'font-awesome-rails'
 
 gem 'carrierwave'
 gem 'carrierwave-aws'
