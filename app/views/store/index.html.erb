@@ -21,7 +21,8 @@
                     </p>
                     <div class="price">
                         <%= number_to_currency(product.price) %>
-                        <%= button_to 'Add to Cart', line_items_path(product_id: product) %>
+                        <%= button_to 'Add to Cart', line_items_path(product_id: product),
+                            remote: true %>
                     </div>
                     <p>This item has been added <i class =<%= "product_#{product.id}"%>><%= number_with_precision(product.popularity,:precision => 0) %> times.</i></p>
                 </li>
