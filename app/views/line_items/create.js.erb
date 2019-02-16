@@ -1,1 +1,5 @@
 $('#cart').html("<%=j render(@cart) %>");
+if ( $('#notice').length ){
+    $('#notice').css("display","none");
+}
+if ($('#cart tr').length == 2) { $('#cart').show(); }
