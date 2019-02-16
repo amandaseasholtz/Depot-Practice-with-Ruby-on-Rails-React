@@ -38,11 +38,13 @@ class LineItemsController < ApplicationController
         product.popularity = product.popularity + 1
         product.update_attribute(:popularity, product.popularity)
         
-        format.html { redirect_to @line_item.cart, notice: 'Line item was successfully created.' }
-        format.json { redirect_to cart_path(@line_item.cart)}
+        format.html { redirect_to store_index_url }
+        format.json { render :show,
+                  status: :created, location: @line_item }
       else
         format.html { render :new }
-        format.json { render json: @line_item.errors, status: :unprocessable_entity }
+        format.json { render json: @line_item.errors,
+        status: :unprocessable_entity }
       end
     end
   end
@@ -95,4 +97,6 @@ class LineItemsController < ApplicationController
         invalid_cart
       end
     end
+
+
 end
