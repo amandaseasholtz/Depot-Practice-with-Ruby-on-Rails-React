@@ -11,10 +11,11 @@
 
   <body>
     <header class="main">
-      <%= image_tag 'logo.svg', alt: 'The Pragmatic Bookshelf' %>
+    <%= link_to image_tag('logo.svg', alt: 'The Pragmatic Bookshelf'), store_index_path(spa: false)  %>
       <h1><%= @page_title %></h1>
     </header>
     <section class="content">
+    <% if @spa.nil? %>
       <nav class="side_nav">
         <% if @cart %>
           <div id="cart" class="carts">
@@ -30,7 +31,8 @@
           <li><a href="/contact">Contact</a></li>
         </ul>
       </nav>
-      <main class='<%= controller.controller_name %>'>
+      <% end %>  
+      <main class='<%= controller.controller_name %>' style="width:90%">
         <%= yield %>
       </main>
     </section>
