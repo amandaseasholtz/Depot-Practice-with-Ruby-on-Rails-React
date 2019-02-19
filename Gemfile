@@ -72,3 +72,5 @@ end
 
 #For ReactJS
 gem 'webpacker'
+
+gem 'json', '2.0.2'
