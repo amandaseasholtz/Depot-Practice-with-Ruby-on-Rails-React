@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import BookList from './BookList';
 import SearchForm from './SearchForm';
+import Cart from './Cart';
 
 export default class Catalog extends React.Component {
 
@@ -48,7 +49,6 @@ export default class Catalog extends React.Component {
         this.setState({ books: books });
     };
 
-    // function to handle "Add to Cart"
     handleAddToCart = (id) => {
 
         var self = this;
@@ -63,23 +63,31 @@ export default class Catalog extends React.Component {
                 console.log(error);
                 alert('Cannot sort events: ', error);
         });
-    
-    };
+        self.refs.cart.handleAddToCart(response.data);
+     };
 
     render = () => {
-
         return (
             <div className="container">
+
+                <div className="row">
+                    <div className="col-md-12 pull-right">
+                        <Cart ref="cart" id={this.props.cart_id}/>
+                    </div>
+                </div>
+
                 <div className="row">
                     <SearchForm handleSearch={this.handleSearch} />
                 </div>
+
+                <div className="row">
                     <BookList books={this.state.books}
-                        sort ={this.state.sort}
+                        sort={this.state.sort}
                         order={this.state.order}
                         handleSortColumn={this.handleSortColumn}
                         handleAddToCart={this.handleAddToCart} />
                 </div>
-           
+            </div>
         );
     };
-}   
+}  
