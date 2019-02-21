@@ -25,28 +25,51 @@ class LineItemsController < ApplicationController
   def edit
   end
 
+  # PATCH/PUT /line_items/1
+  def decrement
+    @cart = Cart.find(session[:cart_id])
+    product = Product.find(params[:id])
+    @line_item = @cart.remove_line_item(product)
+    product.update_attribute(:popularity, product.popularity -= 1)
+    product.save
+    respond_to do |format|
+      if (@line_item.quantity <= 0)
+        @line_item.destroy
+        format.html { redirect_to store_index_url }
+        format.js { @current_item = @line_item;
+                    @product = product
+                  }
+        format.json { redirect_to cart_path(@line_item.cart) }
+      else
+        if @line_item.save
+          format.html { redirect_to store_index_url }
+          format.js { @current_item = @line_item; @product = product }
+          format.json { redirect_to cart_path(@line_item.cart) }
+        else
+          format.json { render json: @line_item.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+  end
+
   # POST /line_items
   # POST /line_items.json
   def create
     product = Product.find(params[:product_id])
     @line_item = @cart.add_product(product)
-    
     respond_to do |format|
       if @line_item.save
         session[:counter] = 0
         product.popularity = product.popularity + 1
         product.update_attribute(:popularity, product.popularity)
-        
         format.html { redirect_to store_index_url }
-        format.js { @current_item = @line_item; @product = product}
-        format.json {redirect_to cart_path(@line_item.cart) } 
+        format.js { @current_item = @line_item; @product = product }
+        format.json { redirect_to cart_path(@line_item.cart) }  
       else
-        format.html { render :new }
-        format.json { render json: @line_item.errors, status: :unprocessable_entity} 
+        format.json { render json: @line_item.errors, status: :unprocessable_entity }
       end
     end
   end
-
   # PATCH/PUT /line_items/1
   # PATCH/PUT /line_items/1.json
   def update
