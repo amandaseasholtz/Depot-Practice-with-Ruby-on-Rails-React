@@ -8,12 +8,12 @@ import PropTypes from 'prop-types'
 
 const Hello = props => {
   return (
-    <div></div>
+    <div>{props.data.length} books in the catalog.</div>
   );
 };
 
 Hello.defaultProps = {
-  name: 'Amanda Seasholtz'
+  name: 'Savon Jackson'
 }
 
 Hello.propTypes = {

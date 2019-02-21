@@ -1,5 +1,7 @@
 $('#cart').html("<%=j render(@cart) %>");
+
 if ( $('#notice').length ){
     $('#notice').css("display","none");
-}
+} 
 if ($('#cart tr').length == 2) { $('#cart').show(); }
+$('.product_<%=@product.id%>').html("This book has been picked up <%= pluralize @product.popularity.to_i, 'time' %>" )

@@ -12,10 +12,10 @@ class Cart < ApplicationRecord
     end
 
     def remove_line_item(product)
-        item = line_items.find_by(product_id: product.id)
-        item.quantity -= 1
+        current_item = line_items.find_by(product_id: product.id)
+        current_item.quantity -= 1
         
-        item
+        current_item
     end
     
     def total_price

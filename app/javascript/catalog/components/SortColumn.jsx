@@ -16,8 +16,8 @@ export default class SortColumn extends React.Component {
         this.props.order == "asc" ? (
           <span className="fa fa-angle-up" aria-hidden="true" />
         ) : (
-            <span className="fa fa-angle-down" aria-hidden="true" />
-          );
+          <span className="fa fa-angle-down" aria-hidden="true" />
+        );
     }
     return (
       <span onClick={this.handleSort}>
@@ -25,5 +25,5 @@ export default class SortColumn extends React.Component {
         {direction}
       </span>
     );
-  }
-};
+  };
+}

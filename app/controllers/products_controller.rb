@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  layout 'products_layout'
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
@@ -44,7 +45,7 @@ class ProductsController < ApplicationController
       if @product.update(product_params)
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
-
+        
         @products = Product.all
         ActionCable.server.broadcast 'products',
           html: render_to_string('store/index', layout: false)
@@ -58,11 +59,14 @@ class ProductsController < ApplicationController
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
-    # if @product.destroy
-      message = @product.destroy ? "Successfully deleted" : "Did not delete - This item is in someone's cart"
-      respond_to do |format|
-      format.html { redirect_to products_url, notice: message }
-      format.json { head :no_content }
+    respond_to do |format|
+      if @product.destroy    
+        format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to products_url, notice: 'Product currently in a cart!' }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -74,6 +78,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:title, :description, :image_url, :price)
+      params.require(:product).permit(:title, :description, :image_url, :price, :popularity)
     end
 end

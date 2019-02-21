@@ -3,20 +3,17 @@ import Book from './Book';
 import SortColumn from './SortColumn';
 
 export default class BookList extends React.Component {
+
   handleSortColumn = (name, order) => {
     this.props.handleSortColumn(name, order);
   };
 
-  // Add a new function to handle "Add to Cart"
-  // All it does is that it calls the handleAddToCart function
-  // in the Catalog component
-  handleAddToCart = (id) =>{
+  handleAddToCart = (id) => {
     this.props.handleAddToCart(id);
-  }; 
+  };
 
   render = () => {
     var books = [];
-
     var self = this;
     this.props.books.forEach(function(book) {
       books.push(<Book book={book}

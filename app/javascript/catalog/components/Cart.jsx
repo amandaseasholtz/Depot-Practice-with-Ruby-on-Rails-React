@@ -27,7 +27,6 @@ export default class Cart extends React.Component {
 
  handleRemoveFromCart = (id) => {
     var self = this;
-
     axios.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
     axios.patch('/line_items/'+id+'/decrement')
       .then(function (response) {
@@ -39,7 +38,7 @@ export default class Cart extends React.Component {
         // window.location = response.headers.location;
       })
       .catch(function (error) {
-        // console.log(error);
+         console.log(error);
         alert('Cannot remove line item: ', error);
     });
 

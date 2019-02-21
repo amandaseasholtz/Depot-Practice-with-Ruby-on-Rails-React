@@ -1,8 +1,9 @@
 class CartsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_cart, only: [:create]
   before_action :set_cart, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
+
+
   # GET /carts
   # GET /carts.json
   def index
@@ -15,7 +16,7 @@ class CartsController < ApplicationController
     respond_to do |format|
       format.html 
       format.json
-    end  
+    end
   end
 
   # GET /carts/new
@@ -61,12 +62,11 @@ class CartsController < ApplicationController
   # DELETE /carts/1.json
   def destroy
     @cart.destroy if @cart.id == session[:cart_id]
-    session[:cart_id]
+    session[:cart_id] = nil
     respond_to do |format|
-      format.html { redirect_to store_index_url,
-        notice: 'Your cart is currently empty' }
+      format.html { redirect_to store_index_url, notice: 'Your cart is now empty.' }
       format.js
-      format.json { head :no_content }
+      format.json {  }
     end
   end
 
@@ -74,10 +74,6 @@ class CartsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_cart
       @cart = Cart.find(params[:id])
-
-      if @cart.id != session[:cart_id]
-        invalid_cart
-      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -87,6 +83,7 @@ class CartsController < ApplicationController
 
     def invalid_cart
       logger.error "Attempt to access invalid cart #{params[:id]}"
-      redirect_to store_index_url, notice: 'Invalid cart'
+      redirect_to store_index_url, notice: "Invalid cart"
     end
-  end
+    
+end
