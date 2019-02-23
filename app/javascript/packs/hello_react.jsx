@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 
 const Hello = props => {
   return (
-    <div>{props.data.length} books in the catalog.</div>
+    <div></div>
   );
 };
 
