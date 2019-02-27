@@ -1,0 +1,1 @@
+import "catalog"; // This implies to use app/javascript/catalog/index.js
