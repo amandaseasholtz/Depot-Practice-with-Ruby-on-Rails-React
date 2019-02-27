@@ -7,9 +7,9 @@
     <td><%= line_item.product.title %></td>
     <td class="price"><%= number_to_currency(line_item.total_price) %></td>
     <td class="minus">
-        <%= button_to "-", decrement_line_item_path(line_item), 
-            remote: true, 
-            method: :patch
+    <% if (@order == nil) || (@order.total_price == 0) %>
+    <td> <%= button_to '-', decrement_line_item_path(line_item), method: :patch, remote: true %></td>
+<%end%>
         %>
     </td>
 </tr>

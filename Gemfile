@@ -77,3 +77,5 @@ gem 'json', '2.0.2'
 
 gem 'faker'
 gem 'kaminari'
+
+gem 'figaro'
