@@ -31,7 +31,7 @@
       <th>Nr. Copies</th>
       <th>Price</th>
     </tr>
-
+    
     <% @products.each do |product| %>
       <tr>
         <td><%= product.title %></td>
@@ -41,9 +41,9 @@
             <% end %>
           <% end %>
             <td>$<%= product.price %></td>
-          </tr>
-          <% end %>
-          </table>
-        </div>
+      </tr>
+    <% end %>
+  </table>
+ </div>
 
 
