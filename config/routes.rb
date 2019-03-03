@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :accounts
+  devise_for :accounts,  :controllers => { :registrations => 'registrations' }
   resources :orders
   resources :line_items
   resources :carts

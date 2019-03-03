@@ -81,3 +81,5 @@ gem 'kaminari'
 gem 'figaro'
 
 gem 'devise'
+
+gem 'simple_form'
