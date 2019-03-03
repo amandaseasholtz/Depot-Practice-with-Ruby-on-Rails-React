@@ -9,8 +9,8 @@ class StoreController < ApplicationController
     else
       session[:counter] +=1
       if session[:counter]>5
-        flash.now[:index]="You have been back here #{session[:counter]}
-          times".pluralize(session[:counter])+"  Time to Put something in ur cart already!"
+       # flash.now[:index]="You have been back here #{session[:counter]}
+        #  times".pluralize(session[:counter])+"  Time to Put something in ur cart already!"
       end
     end
 

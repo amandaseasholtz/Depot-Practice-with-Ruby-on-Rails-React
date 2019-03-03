@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   resources :orders
   resources :line_items
   resources :carts
+  resources :buyers, only: [:edit, :update]
+  resources :sellers, only: [:edit, :update]
+  
   root 'store#index', as: 'store_index'
   get 'carts/:id', to: 'carts#show', as: 'mycart'
   get 'search', to: 'store#search'
