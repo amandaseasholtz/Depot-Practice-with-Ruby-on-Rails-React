@@ -79,3 +79,5 @@ gem 'faker'
 gem 'kaminari'
 
 gem 'figaro'
+
+gem 'devise'
