@@ -40,7 +40,7 @@ class OrdersController < ApplicationController
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-        OrderNotifierMailer.received(@order).deliver
+        #OrderNotifierMailer.received(@order).deliver
         format.html { redirect_to store_index_url, notice:
             'Thank you for your order.' }
         format.json { render :show, status: :created, location: @order }
@@ -64,6 +64,15 @@ class OrdersController < ApplicationController
       end
     end
   end
+
+  def show_orders_for_seller
+    seller = Seller.find(params[:id])   
+    products = seller.products
+    @line_items = LineItem.where(product_id: products)
+    products.each do |product|
+      logger.info(product)
+    end
+end 
 
   # DELETE /orders/1
   # DELETE /orders/1.json

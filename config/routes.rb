@@ -16,6 +16,14 @@ Rails.application.routes.draw do
     end
    end
 
+   resources :sellers do
+    resources :products                                         # a nested route: seller_products_path
+
+    member do
+        get 'orders', to: 'line_items#show_orders_for_seller'   # a nested route: orders_seller_path
+    end
+end
+
    mount ActionCable.server => '/cable'
    
   resources :products
