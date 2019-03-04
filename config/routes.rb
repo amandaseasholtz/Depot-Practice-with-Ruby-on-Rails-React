@@ -3,9 +3,6 @@ Rails.application.routes.draw do
   resources :orders
   resources :line_items
   resources :carts
-  resources :buyers, only: [:edit, :update]
-  resources :sellers, only: [:edit, :update]
-  
   root 'store#index', as: 'store_index'
   get 'carts/:id', to: 'carts#show', as: 'mycart'
   get 'search', to: 'store#search'
@@ -15,7 +12,16 @@ Rails.application.routes.draw do
       patch "decrement"
     end
    end
+   
+   resources :sellers do
+    resources :products                                         # a nested route: seller_products_path
 
+    member do
+        get 'orders', to: 'line_items#show_orders_for_seller'   # a nested route: orders_seller_path
+    end
+end
+   resources :buyers, only: [:edit, :update]
+   resources :sellers, only: [:edit, :update]
    mount ActionCable.server => '/cable'
    
   resources :products

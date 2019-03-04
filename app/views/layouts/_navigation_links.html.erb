@@ -1,34 +1,37 @@
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Catalog Links
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <%= link_to 'Catalog', store_index_path(spa: false), class: "dropdown-item"  %>
-        <%= link_to "Catlog(SPA)", store_index_path(spa: true), class: "dropdown-item" %>
-    </div>
+<li role="presentation" class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+          Catalog <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+                <li><%= link_to 'Regular', store_index_path(spa: false) %></li>
+                <li><%= link_to "SPA", store_index_path(spa: true) %></li>
+        </ul>
 </li>
 
 <% if account_signed_in? %>
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="editAccountDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Edit Settings (<%= (current_account.accountable.name.nil? or current_account.accountable.name == "") ? "No Name" : current_account.accountable.name %>)
-    </a>
-    <div class="dropdown-menu" aria-labelledby="editAccountDropdownMenuLink">
-      <% if current_account.accountable_type == "Seller" %>
-        <%= link_to 'Seller Profile', edit_seller_path(current_account.accountable_id), class: "dropdown-item" %><% else %>
-        <%= link_to 'Buyer Profile', edit_buyer_path(current_account.accountable_id), class: "dropdown-item"  %>
-      <% end %>
-      <%= link_to 'Account Settings', edit_account_registration_path, class: "dropdown-item"  %>
-    </div>
-  </li>
-  <li class="nav-item">
-    <%= link_to 'Sign out', destroy_account_session_path, :method=>'delete', class:"nav-link" %>
-  </li>
+    <% if current_account.accountable_type == "SuperAccount" %>
+        <li><%= link_to 'Admin Dashboard', admin_root_path %></li>                  
+    <% else %>
+		<li role="presentation" class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+				  Resources <span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+
+						<% if current_account.accountable_type == "Seller" %>
+							<li><%= link_to 'My Products', seller_products_path(current_account.accountable_id) %></li>
+							<li><%= link_to 'My Orders', orders_seller_path(current_account.accountable_id) %></li>
+						<% else %>
+						<li><%= link_to 'My Orders', "#" %></li>
+					<% end %>
+				</ul>
+		</li>
+	<% end %>
+    <li><%= link_to 'Sign out', destroy_account_session_path, :method=>'delete' %></li>
+
 <% else %>
-  <li class="nav-item">
-    <%= link_to 'Sign in', new_account_session_path, class:"nav-link" %>
-  </li>
-  <li class="nav-item">
-    <%= link_to 'Sign up', new_account_registration_path,  class:"nav-link" %>
-  </li>
+
+    <li><%= link_to 'Sign in', new_account_session_path %></li>
+    <li><%= link_to 'Sign up', new_account_registration_path %></li>
+
 <% end %>
