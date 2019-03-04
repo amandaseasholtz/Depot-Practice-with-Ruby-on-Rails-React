@@ -24,6 +24,10 @@ Rails.application.routes.draw do
     end
 end
 
+resources :buyers do
+  resources :orders                       # a nested route: buyer_orders_path
+end
+
    mount ActionCable.server => '/cable'
    
   resources :products

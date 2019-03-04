@@ -11,6 +11,7 @@ class Order < ApplicationRecord
         validates :pay_type, inclusion: pay_types.keys
         has_many :products, through: :line_items 
         paginates_per 10
+        belongs_to :buyer, optional: true
         
     def add_line_items_from_cart(cart)
         cart.line_items.each do |item|

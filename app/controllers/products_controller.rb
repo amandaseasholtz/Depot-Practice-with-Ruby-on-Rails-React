@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   layout 'products_layout'
+  before_action :authenticate_account!
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
