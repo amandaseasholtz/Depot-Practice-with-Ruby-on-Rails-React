@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   layout 'products_layout'
   before_action :authenticate_account!
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_product
 
   def pundit_user
     current_account
@@ -102,5 +103,10 @@ class ProductsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       params.require(:product).permit(:title, :description, :image_url, :price, :popularity)
+    end
+
+    def invalid_product
+      logger.error "Attempt to access invalid product #{params[:id]}"
+      redirect_to store_index_url, notice: "Invalid product"
     end
 end

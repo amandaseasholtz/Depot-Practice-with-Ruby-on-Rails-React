@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
   before_action :set_cart, only: [:new, :create]
   before_action :ensure_cart_isnt_empty, only: [:new, :create]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_order
 
   def pundit_user
     current_account
@@ -129,4 +130,10 @@ end
       redirect_to store_index_url, notice: 'Your cart is empty'
       end
     end
+
+    def invalid_order
+      logger.error "Attempt to access invalid order #{params[:id]}"
+      redirect_to store_index_url, notice: "Invalid order"
+    end
+
   end
