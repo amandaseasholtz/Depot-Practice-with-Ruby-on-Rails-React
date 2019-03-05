@@ -4,6 +4,10 @@ class LineItemsController < ApplicationController
   before_action :set_cart, only: [:create]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
 
+  def pundit_user
+    current_account
+  end
+
   # GET /line_items
   # GET /line_items.json
   def index
@@ -101,6 +105,12 @@ class LineItemsController < ApplicationController
     end
   end
 
+  def show_orders_for_seller
+    seller = Seller.find(params[:id])  
+
+    authorize seller, :show_orders_for_seller?
+  end
+    
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_line_item

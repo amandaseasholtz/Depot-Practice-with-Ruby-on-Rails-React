@@ -13,5 +13,9 @@ class SellerPolicy
     def update?
       @current_account == @seller.account
     end
+
+    def show_orders_for_seller?
+        @current_account == @seller.account
+    end
   
   end
