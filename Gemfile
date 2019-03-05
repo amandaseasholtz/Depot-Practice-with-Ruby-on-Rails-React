@@ -83,3 +83,5 @@ gem 'figaro'
 gem 'devise'
 
 gem 'simple_form'
+
+gem 'pundit'
