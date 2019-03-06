@@ -6,7 +6,7 @@ class Account < ApplicationRecord
 
 
          belongs_to :accountable, polymorphic: true
-         ACCOUNT_TYPES=["Buyer", "Seller"]
+         ACCOUNT_TYPES=["SuperAccount", "Buyer", "Seller"] 
          attr_accessor :type
 
 end

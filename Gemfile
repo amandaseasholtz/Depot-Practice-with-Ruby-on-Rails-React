@@ -85,3 +85,5 @@ gem 'devise'
 gem 'simple_form'
 
 gem 'pundit'
+
+gem 'administrate'
