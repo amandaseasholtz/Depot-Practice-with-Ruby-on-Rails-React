@@ -2,18 +2,18 @@
     <aside id="notice"><%= notice %></aside>
 <% end %>
 
-<% if account_signed_in? and (current_account.accountable_type == "Seller" or current_account.accountable_type == "SuperAccount")%>
+<% if account_signed_in? and ( current_account.accountable_type == "Seller" or current_account.accountable_type == "SuperAccount")%>
     <%= content_tag :div,
             id: "catalog",
             seller: true,
             cart_id: @cart.id  do %>
-    <%= javascript_pack_tag 'catalog' %>
+       <%= javascript_pack_tag 'catalog' %>
     <% end %>
 <%else %>
     <%= content_tag :div,
-      id: "catalog",
-      seller: false,
-      cart_id: @cart.id  do %>
-    <%= javascript_pack_tag 'catalog' %>
+            id: "catalog",
+            seller: false,
+            cart_id: @cart.id  do %>
+       <%= javascript_pack_tag 'catalog' %>
     <% end %>
 <% end %>
