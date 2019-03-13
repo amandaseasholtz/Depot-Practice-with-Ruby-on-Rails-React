@@ -6,7 +6,6 @@ import CheckPayType         from './CheckPayType';
 import PurchaseOrderPayType from './PurchaseOrderPayType';
 
 export default class PayTypeSelector extends React.Component {
-  
   constructor(props) {
     super(props);
     this.onPayTypeSelected = this.onPayTypeSelected.bind(this);
@@ -38,7 +37,6 @@ export default class PayTypeSelector extends React.Component {
         <div className="field">
           <label htmlFor="order_pay_type">Pay type</label>
           <select className="form-control form-control-lg" id="pay_type" onChange={this.onPayTypeSelected} name="order[pay_type]">
-        
             name="order[pay_type]"
             value={this.state.selectedPayType}>
             <option value="">Select a payment method</option>

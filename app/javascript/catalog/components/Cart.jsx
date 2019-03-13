@@ -87,42 +87,45 @@ export default class Cart extends React.Component {
       });
   }
 
-  render = () => {
-    if (this.state.total_price != 0) {
+ render = () => {
+  if (this.state.total_price != 0) {
 
-      var buttons = (this.props.url != "/order_form") ?
-      (
-        <div>
-          <a className="btn btn-success" 
-             onClick={this.handleEmptyCart} >
-             Empty Cart
-          </a>
-          &nbsp;
-          <Link className="btn btn-success" to={{pathname:"/order_form"}}>
-              Checkout
-          </Link>
-        </div>
-      )
-      :
-      (
-         <a className="btn btn-success"
-            onClick={this.handleEmptyCart} >
-          Empty Cart
-         </a>
-      )    
-
+    var buttons = (this.props.url != "/order_form") ?
+    (
+      <div>
+              <a className="btn btn-success" 
+                 onClick={this.handleEmptyCart} >
+                 Empty Cart
+              </a>
+              &nbsp;
+             {
+                //  Since on the catalog page, a new cart id will be generated after the cart is emptied and then recreated,
+                //  we need to pass the true (and new) cart id to "Link" such that the cart on the OrderForm page could be properly rendered.
+              }
+              <Link className="btn btn-success" to={{pathname:"/order_form", true_cart_id: this.state.id}}>
+                Checkout
+             </Link>
+            </div>
+          )
+          :
+          (
+             <a className="btn btn-success"
+                onClick={this.handleEmptyCart} >
+              Empty Cart
+             </a>
+          )    
       return(
         <div className="spa_cart">
-          <h2>Your Cart</h2>
+         <h2>Your Cart</h2>
 
-          <LineItems total_price={this.state.total_price}
-                     line_items={this.state.line_items} 
-                     handleRemoveFromCart={this.handleRemoveFromCart} />
-
-          {buttons}
-        </div>
-      )
-    }
+<LineItems total_price={this.state.total_price}
+           line_items={this.state.line_items} 
+           handleRemoveFromCart={this.handleRemoveFromCart} />
+        {buttons}
+      </div>
+        )
+      }
+      
     else {
       return (
         <div className="spa_cart">

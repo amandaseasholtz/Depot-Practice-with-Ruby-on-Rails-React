@@ -1,10 +1,11 @@
 class OrdersController < ApplicationController
   include CurrentCart
+  skip_before_action :verify_authenticity_token
   before_action :set_cart, only: [:new, :create]
   before_action :ensure_cart_isnt_empty, only: [:new, :create]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_order
-  skip_before_action :verify_authenticity_token
+
   def pundit_user
     current_account
   end
@@ -68,7 +69,7 @@ end
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-       # OrderNotifierMailer.received(@order).deliver
+        #OrderNotifierMailer.received(@order).deliver
         format.html { redirect_to store_index_url, notice:
             'Thank you for your order.' }
         format.json { render :show, status: :created, location: @order }
@@ -132,16 +133,11 @@ end
           format.json { render json: {form: "Your cart is empty. Can't place order."}, status: :unprocessable_entity }
         end
       end
-    en
+    end
 
-    def invalid_cart
-      logger.error "Attempt to access invalid cart #{params[:id]}"
-
-      respond_to do |format|
-        format.html { redirect_to store_index_url, notice: "Invalid cart" }
-        format.json { render json: {id: "invalid", line_items: [], total_price: 0} }
-      end
-  end
-
+    def invalid_order
+      logger.error "Attempt to access invalid order #{params[:id]}"
+      redirect_to store_index_url, notice: "Invalid order"
+    end
 
   end
