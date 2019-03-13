@@ -1,8 +1,8 @@
 import React from 'react';
 import LineItems from './LineItems';
 import axios from 'axios';
-
 import { Link } from "react-router-dom";
+
 export default class Cart extends React.Component {
   state = {
     id: 0,
@@ -87,28 +87,39 @@ export default class Cart extends React.Component {
       });
   }
 
- render = () => {
+  render = () => {
     if (this.state.total_price != 0) {
+
+      var buttons = (this.props.url != "/order_form") ?
+      (
+        <div>
+          <a className="btn btn-success" 
+             onClick={this.handleEmptyCart} >
+             Empty Cart
+          </a>
+          &nbsp;
+          <Link className="btn btn-success" to={{pathname:"/order_form"}}>
+              Checkout
+          </Link>
+        </div>
+      )
+      :
+      (
+         <a className="btn btn-success"
+            onClick={this.handleEmptyCart} >
+          Empty Cart
+         </a>
+      )    
+
       return(
         <div className="spa_cart">
           <h2>Your Cart</h2>
+
           <LineItems total_price={this.state.total_price}
                      line_items={this.state.line_items} 
                      handleRemoveFromCart={this.handleRemoveFromCart} />
-          <a className="btn btn-success"
-             onClick={this.handleEmptyCart} >
-            Empty Cart
-          </a>
-          &nbsp;
-              {
-                // <a className="btn btn-success"
-                //  onClick={this.handleCheckout} >
-                // Checkout
-                // </a>
-              }
-              <Link className="btn btn-success" to={{pathname:"/order_form"}}>
-                  Checkout
-              </Link>
+
+          {buttons}
         </div>
       )
     }
