@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   before_action :ensure_cart_isnt_empty, only: [:new, :create]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_order
-
+  skip_before_action :verify_authenticity_token
   def pundit_user
     current_account
   end
@@ -127,13 +127,21 @@ end
 
     def ensure_cart_isnt_empty
       if @cart.line_items.empty?
-      redirect_to store_index_url, notice: 'Your cart is empty'
+        respond_to do |format|
+          format.html { redirect_to store_index_url, notice: "Your cart is empty. Can't place order." }
+          format.json { render json: {form: "Your cart is empty. Can't place order."}, status: :unprocessable_entity }
+        end
       end
-    end
+    en
 
-    def invalid_order
-      logger.error "Attempt to access invalid order #{params[:id]}"
-      redirect_to store_index_url, notice: "Invalid order"
-    end
+    def invalid_cart
+      logger.error "Attempt to access invalid cart #{params[:id]}"
+
+      respond_to do |format|
+        format.html { redirect_to store_index_url, notice: "Invalid cart" }
+        format.json { render json: {id: "invalid", line_items: [], total_price: 0} }
+      end
+  end
+
 
   end

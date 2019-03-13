@@ -7,7 +7,8 @@ class Order < ApplicationRecord
         }
 
         has_many :line_items, dependent: :destroy
-        validates :name, :address, :email, presence: true
+        validates :name, :address, :email, :pay_type, presence: true
+        validates :email, format: {with: URI::MailTo::EMAIL_REGEXP}
         validates :pay_type, inclusion: pay_types.keys
         has_many :products, through: :line_items 
         paginates_per 10
