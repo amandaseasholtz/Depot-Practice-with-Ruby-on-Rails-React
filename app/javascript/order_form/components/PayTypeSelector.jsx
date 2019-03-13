@@ -5,7 +5,8 @@ import CreditCardPayType    from './CreditCardPayType';
 import CheckPayType         from './CheckPayType';
 import PurchaseOrderPayType from './PurchaseOrderPayType';
 
-class PayTypeSelector extends React.Component {
+export default class PayTypeSelector extends React.Component {
+  
   constructor(props) {
     super(props);
     this.onPayTypeSelected = this.onPayTypeSelected.bind(this);
@@ -14,7 +15,10 @@ class PayTypeSelector extends React.Component {
 
   onPayTypeSelected(event) {
     this.setState({ selectedPayType: event.target.value });
-  }
+    if (this.props.handleSelectPayType) {
+      this.props.handleSelectPayType(event.target.value);
+    }
+}
 
   componentDidMount = () => {
     this.setState({ selectedPayType: this.props.pay_type ? this.props.pay_type : "" });
@@ -33,7 +37,8 @@ class PayTypeSelector extends React.Component {
       <div>
         <div className="field">
           <label htmlFor="order_pay_type">Pay type</label>
-          <select id="pay_type" onChange={this.onPayTypeSelected} 
+          <select className="form-control form-control-lg" id="pay_type" onChange={this.onPayTypeSelected} name="order[pay_type]">
+        
             name="order[pay_type]"
             value={this.state.selectedPayType}>
             <option value="">Select a payment method</option>
@@ -47,4 +52,3 @@ class PayTypeSelector extends React.Component {
     );
   }
 }
-export default PayTypeSelector
