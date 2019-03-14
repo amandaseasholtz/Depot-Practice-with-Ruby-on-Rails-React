@@ -27,5 +27,5 @@ export default class SearchForm extends React.Component {
              placeholder="Type the title of the book you are searching here..."
              ref="query" />
     )
-  }
+  };
 }

@@ -8,22 +8,22 @@ export default class LineItem extends React.Component {
     total_price: PropTypes.number,
   };
 
- handleRemoveFromCart = (e) => {
+  handleRemoveFromCart = (e) => {
     this.props.handleRemoveFromCart(this.props.line_item.id); 
   };
 
   render = () => {
     return(
       <tr className="entry">
-        <td>{this.props.line_item.quantity}&times;</td>
-        <td>{this.props.line_item.title}</td>
-        <td className="item_price">${this.props.line_item.total_price}</td>
-        <td>
-          <a className="btn btn-success"
-             onClick={this.handleRemoveFromCart} >
-            -
-          </a>
-        </td> 
+      <td>{this.props.line_item.quantity}&times;</td>
+      <td>{this.props.line_item.title}</td>
+      <td className="item_price">${this.props.line_item.total_price}</td>
+      <td>
+      <a className="btn btn-success"
+      onClick={this.handleRemoveFromCart} >
+      -
+      </a>
+      </td> 
       </tr>
     )
   };

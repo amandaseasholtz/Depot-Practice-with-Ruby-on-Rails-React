@@ -1,7 +1,7 @@
-class RegistrationsController < Devise::RegistrationsController
-    def new
-        super
-    end
+ class RegistrationsController < Devise::RegistrationsController
+     def new
+            super
+        end
 
     def create
         build_resource(sign_up_params)

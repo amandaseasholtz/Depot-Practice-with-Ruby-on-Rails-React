@@ -14,6 +14,7 @@ class LineItemDashboard < Administrate::BaseDashboard
     id: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
+    quantity: Field::Number,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -37,6 +38,7 @@ class LineItemDashboard < Administrate::BaseDashboard
     :id,
     :created_at,
     :updated_at,
+    :quantity,
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -46,6 +48,7 @@ class LineItemDashboard < Administrate::BaseDashboard
     :order,
     :product,
     :cart,
+    :quantity,
   ].freeze
 
   # Overwrite this method to customize how line items are displayed

@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 import Cart from '../../catalog/components/Cart';
-import PayTypeSelector from './pay_type_selector';
+import PayTypeSelector from './PayTypeSelector';
 import classnames from "classnames";
 
 export default class OrderForm extends React.Component {
@@ -35,16 +35,16 @@ export default class OrderForm extends React.Component {
         axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
         axios
             .post("/orders", { ...newOrder })
-            .then(function (response) {
+            .then(function(response) {
                 console.log(response.data);
                 self.props.history.push({
-                    pathname: '/'
+                  pathname: '/'
                 });
             })
-            .catch(function (error) {
+            .catch(function(error) {
                 console.log(error.response);
                 // alert("Cannot place order: ", error);
-                self.setState({ errors: error.response.data })
+                self.setState({errors: error.response.data})
             });
     }
 
@@ -58,7 +58,7 @@ export default class OrderForm extends React.Component {
 
     handleSelectPayType = selected_pay_type => {
         // console.log(selected_pay_type);
-        this.setState({ pay_type: selected_pay_type });
+        this.setState( {pay_type: selected_pay_type});
     }
 
     render = () => {
@@ -70,7 +70,6 @@ export default class OrderForm extends React.Component {
         // 
         // ES6 destructing assginment syntax
         var {true_cart_id} = this.props.location
-
         return (
             <div className="container">
                 <div className="row">
@@ -83,7 +82,7 @@ export default class OrderForm extends React.Component {
                 <form noValidate onSubmit={this.onFormSubmit}>
                     <div>
                         {errors.form && (
-                            <div className="invalid-feedback" style={{ display: "block" }}>
+                            <div className="invalid-feedback" style={{display: "block"}}>
                                 {errors.form}
                             </div>
                         )}
@@ -96,7 +95,7 @@ export default class OrderForm extends React.Component {
                                 "form-control form-control-lg",
                                 { "is-invalid": errors.name }
                             )}
-                            placeholder="Name"
+                               placeholder="Name"
                             name="name"
                             value={this.state.name}
                             onChange={this.onInputChange}
@@ -148,11 +147,11 @@ export default class OrderForm extends React.Component {
                     </div>
 
                     <div className="form-group">
-                        <div>
-                            <PayTypeSelector handleSelectPayType={this.handleSelectPayType} />
-                        </div>
+                    <div>
+                        <PayTypeSelector handleSelectPayType={this.handleSelectPayType} />
+                    </div>
                         {errors.pay_type && (
-                            <div className="invalid-feedback" style={{ display: "block" }}>
+                            <div className="invalid-feedback" style={{display: "block"}}>
                                 {errors.pay_type.join(", ")}
                             </div>
                         )}
@@ -166,11 +165,11 @@ export default class OrderForm extends React.Component {
                         />
                         &nbsp;
                         <Link className="btn btn-success" to={{pathname:"/", true_cart_id: true_cart_id }}>
-                            Cancel
+                                    Cancel
                         </Link>
                     </div>
                 </form>
             </div>
-        )
-    }
+        );
+    };
 }

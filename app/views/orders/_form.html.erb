@@ -23,16 +23,20 @@
 
   <div class="field">
     <%= form.label :email %>
-    <%= form.email_field :email, id: :order_email, size: 40 %>
+    <%= form.text_field :email, id: :order_email, size:40 %>
   </div>
 
-  <%= content_tag :div,
-  id: "order_pay_type",
-  pay_type: order.pay_type  do %>
-    <%= javascript_pack_tag 'pay_type_selector' %>
-  <% end %> 
+<%= content_tag :div,
+    id: "order_pay_type",
+    pay_type: order.pay_type  do %>
+<% end %>
+
+  <div class="field">
+    <%= form.label :pay_type %>
+    <%= form.select :pay_type, Order.pay_types.keys, id: :order_pay_type, prompt: 'Select a payment method' %>
+  </div>
 
   <div class="actions">
-  <%= form.submit 'Place Order' %>
+    <%= form.submit 'Place Order' %>
   </div>
 <% end %>

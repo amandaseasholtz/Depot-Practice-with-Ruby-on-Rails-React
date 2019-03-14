@@ -1,5 +1,4 @@
 module Admin
-    class SuperAccountsController < Admin::ApplicationController
-    end
+  class SuperAccountsController < Admin::ApplicationController
   end
-  
+end

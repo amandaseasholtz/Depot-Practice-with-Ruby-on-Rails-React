@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
-  layout 'products_layout'
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_account!
+ rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
 
   def pundit_user
@@ -14,12 +14,12 @@ class ProductsController < ApplicationController
     if (params[:seller_id])
       @seller = Seller.find(params[:seller_id])
       @products = @seller.products
+      # @products = Product.order(:popularity).reverse
     else
       @products = Product.all
     end
-    # This may be neater but it's causing problems.
-    #authorize Product 
-    #@products = policy_scope(Product)
+    authorize Product 
+    @products = policy_scope(Product)
   end
 
   # GET /products/1
@@ -45,12 +45,11 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     authorize @product
-    @product.popularity = 0
-    if current_account && current_account.accountable_type == "Seller"
-      @product.seller = current_account.accountable
-    end
-
+    session[:product_popularity] = @product.popularity
     respond_to do |format|
+      if current_account && current_account.accountable_type == "Seller"
+         @product.seller = current_account.accountable
+       end
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
@@ -69,10 +68,11 @@ class ProductsController < ApplicationController
       if @product.update(product_params)
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
-        
+
         @products = Product.all
         ActionCable.server.broadcast 'products',
           html: render_to_string('store/index', layout: false)
+
       else
         format.html { render :edit }
         format.json { render json: @product.errors, status: :unprocessable_entity }
@@ -84,25 +84,31 @@ class ProductsController < ApplicationController
   # DELETE /products/1.json
   def destroy
     authorize @product
-    respond_to do |format|
-      if @product.destroy    
+    if @product.destroy
+      respond_to do |format|
         format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
         format.json { head :no_content }
-      else
-        format.html { redirect_to products_url, notice: 'Product currently in a cart!' }
-        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to products_url, notice: 'cannot delete product which is already contained in a cart'}
       end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = Product.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_product
+    @product = Product.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def product_params
-      params.require(:product).permit(:title, :description, :image_url, :price, :popularity)
-    end
+  def invalid_cart
+    logger.error "Attempt to access invalid cart #{params[:id]}"
+    redirect_to store_index_url, notice: 'Invalid cart'
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def product_params
+    params.require(:product).permit(:title, :description, :image_url, :price)
+  end
 end

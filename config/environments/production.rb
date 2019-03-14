@@ -23,7 +23,20 @@ Rails.application.configure do
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
-
+# config.action_mailer.raise_delivery_errors = false
+config.action_mailer.raise_delivery_errors = true
+config.action_mailer.delivery_method = :smtp
+host = 'project6-yourfirstname-yourlastname.herokuapp.com'
+config.action_mailer.default_url_options = { host: host }
+ActionMailer::Base.smtp_settings = {
+        :address        => 'smtp.sendgrid.net',
+        :port           => '587',
+        :authentication => :plain,
+        :user_name      => ENV['SENDGRID_USERNAME'],
+        :password       => ENV['SENDGRID_PASSWORD'],    
+        :domain         => 'heroku.com',
+        :enable_starttls_auto => true
+}
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
@@ -45,8 +58,8 @@ Rails.application.configure do
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
-  config.action_cable.url = 'wss://project7-amanda-seasholtz.herokuapp.com/cable'
-  config.action_cable.allowed_request_origins = [ 'http://project7-amanda-seasholtz.herokuapp.com/']
+  config.action_cable.url = 'wss://project7-montrez-cox.herokuapp.com/cable'
+  config.action_cable.allowed_request_origins = [ 'http://project7-montrez-cox.herokuapp.com']
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
@@ -93,18 +106,4 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-# config.action_mailer.raise_delivery_errors = false
-config.action_mailer.raise_delivery_errors = true
-config.action_mailer.delivery_method = :smtp
-host = 'project6-yourfirstname-yourlastname.herokuapp.com'
-config.action_mailer.default_url_options = { host: host }
-ActionMailer::Base.smtp_settings = {
-        :address        => 'smtp.sendgrid.net',
-        :port           => '587',
-        :authentication => :plain,
-        :user_name      => ENV['SENDGRID_USERNAME'],
-        :password       => ENV['SENDGRID_PASSWORD'],    
-        :domain         => 'heroku.com',
-        :enable_starttls_auto => true
-}
 end
