@@ -58,8 +58,8 @@ ActionMailer::Base.smtp_settings = {
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
-  config.action_cable.url = 'wss://project7-montrez-cox.herokuapp.com/cable'
-  config.action_cable.allowed_request_origins = [ 'http://project7-montrez-cox.herokuapp.com']
+  config.action_cable.url = 'wss://project8-amanda-seasholtz.herokuapp.com/cable'
+  config.action_cable.allowed_request_origins = [ 'http://project8-amanda-seasholtz.herokuapp.com']
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
