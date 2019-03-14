@@ -9,8 +9,8 @@ class ProductDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     line_items: Field::HasMany,
-    seller: Field::BelongsTo,
     orders: Field::HasMany,
+    seller: Field::BelongsTo,
     id: Field::Number,
     title: Field::String,
     description: Field::Text,
@@ -28,8 +28,8 @@ class ProductDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :line_items,
-    :seller,
     :orders,
+    :seller,
     :id,
   ].freeze
 
@@ -37,8 +37,8 @@ class ProductDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :line_items,
-    :seller,
     :orders,
+    :seller,
     :id,
     :title,
     :description,
@@ -54,8 +54,8 @@ class ProductDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :line_items,
-    :seller,
     :orders,
+    :seller,
     :title,
     :description,
     :image_url,

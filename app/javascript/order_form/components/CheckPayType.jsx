@@ -1,6 +1,6 @@
 import React from 'react'
 
-class CheckPayType extends React.Component {
+export default class CheckPayType extends React.Component {
   render() {
     return (
       <div>
@@ -17,7 +17,6 @@ class CheckPayType extends React.Component {
                  name="order[account_number]" 
                  id="order_account_number"
                  className="form-control form-control-lg" />
-}
         </div>
       </div>
     );

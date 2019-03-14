@@ -1,6 +1,6 @@
 import React from 'react'
 
-class PurchaseOrderPayType extends React.Component {
+export default class PurchaseOrderPayType extends React.Component {
   render() {
     return (
       <div>
@@ -8,7 +8,7 @@ class PurchaseOrderPayType extends React.Component {
           <label htmlFor="order_po_number">PO #</label>
           <input type="password"
                  name="order[po_number]" 
-                 id="order_po_number" 
+                 id="order_po_number"
                  className="form-control form-control-lg" />
         </div>
       </div>

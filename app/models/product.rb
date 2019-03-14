@@ -1,7 +1,7 @@
 class Product < ApplicationRecord
     has_many :line_items
-    belongs_to :seller, optional: true
     has_many :orders, through: :line_items 
+    belongs_to :seller
     before_destroy :ensure_not_referenced_by_any_line_item
     mount_uploader :image_url, ImageUploader
     validates :title, :description, :image_url, :popularity, presence: true

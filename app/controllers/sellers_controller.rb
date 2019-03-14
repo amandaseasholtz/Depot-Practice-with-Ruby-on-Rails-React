@@ -1,16 +1,21 @@
 class SellersController < ApplicationController
     before_action :set_seller, only: [:edit, :update]
     before_action :authenticate_account!
+  
+
     def pundit_user
-        current_account
+      current_account
     end
-   
+
+    # GET /sellers/1/edit
     def edit
-       authorize @seller
+      authorize @seller
     end
-   
+  
+    # PATCH/PUT /sellers/1
+    # PATCH/PUT /sellers/1.json
     def update
-        authorize @seller
+      authorize @seller
       respond_to do |format|
         if @seller.update(seller_params)
           format.html { redirect_to store_index_url, notice: "The profile of the seller #{@seller.name} was successfully updated." }
@@ -33,3 +38,4 @@ class SellersController < ApplicationController
         params.require(:seller).permit(:name, :address)
       end
   end
+  

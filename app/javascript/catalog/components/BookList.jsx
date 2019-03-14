@@ -15,13 +15,13 @@ export default class BookList extends React.Component {
   render = () => {
     var books = [];
     var self = this;
-    this.props.books.forEach(function(book) {
-      books.push(<Book 
+    this.props.books.forEach(function (book) {
+      books.push(<Book
         book={book}
         key={'book' + book.id}
         seller={self.props.seller}
         handleAddToCart={self.handleAddToCart} />);
-      }
+    }
     );
 
     return (

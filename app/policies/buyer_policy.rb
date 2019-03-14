@@ -15,3 +15,4 @@ class BuyerPolicy
     end
   
   end
+  

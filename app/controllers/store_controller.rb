@@ -4,15 +4,15 @@ class StoreController < ApplicationController
 
   def index
     @products = Product.order(popularity: :desc)
-    if session[:counter].nil?
-      session[:counter] = 0
-    else
-      session[:counter] +=1
-      if session[:counter]>5
-       # flash.now[:index]="You have been back here #{session[:counter]}
-        #  times".pluralize(session[:counter])+"  Time to Put something in ur cart already!"
-      end
-    end
+    #if session[:counter].nil?
+    #  session[:counter] = 0
+    #else
+    #  session[:counter] +=1
+    #  if session[:counter]>5
+    #    flash.now[:index]="You have been back here #{session[:counter]}
+    #      times".pluralize(session[:counter])+" Buy something please!"
+    #  end
+    #end
 
     respond_to do |format|
       format.html {

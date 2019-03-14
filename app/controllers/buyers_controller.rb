@@ -1,17 +1,21 @@
 class BuyersController < ApplicationController
     before_action :set_buyer, only: [:edit, :update]
     before_action :authenticate_account!
+  
 
     def pundit_user
-        current_account
+      current_account
     end
-   
+
+    # GET /buyers/1/edit
     def edit
-       authorize @buyer
+      authorize @buyer
     end
-   
+  
+    # PATCH/PUT /buyers/1
+    # PATCH/PUT /buyers/1.json
     def update
-        authorize @buyer
+      authorize @buyer
       respond_to do |format|
         if @buyer.update(buyer_params)
           format.html { redirect_to store_index_url, notice: "The profile of the buyer #{@buyer.name} was successfully updated." }
@@ -34,3 +38,4 @@ class BuyersController < ApplicationController
         params.require(:buyer).permit(:name, :address, :pay_type)
       end
   end
+  

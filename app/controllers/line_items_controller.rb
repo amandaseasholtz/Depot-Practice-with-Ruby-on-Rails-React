@@ -4,6 +4,7 @@ class LineItemsController < ApplicationController
   before_action :set_cart, only: [:create]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
 
+
   def pundit_user
     current_account
   end
@@ -28,29 +29,40 @@ class LineItemsController < ApplicationController
   def edit
   end
 
+  def show_orders_for_seller
+    seller = Seller.find(params[:id])   
+    
+    authorize seller, :show_orders_for_seller?
+
+    products = seller.products
+    @line_items = LineItem.where(product_id: products)
+    products.each do |product|
+      logger.info(product)
+    end
+  end
+
   # PATCH/PUT /line_items/1
   def decrement
-
-    @cart = Cart.find(session[:cart_id])
     @line_item = LineItem.find(params[:id])
+    @cart = Cart.find(session[:cart_id])
     product = Product.find(@line_item.product.id)
     @line_item = @cart.remove_line_item(product)
 
     product.update_attribute(:popularity, product.popularity -= 1)
     product.save
+
     respond_to do |format|
       if (@line_item.quantity <= 0)
         @line_item.destroy
         format.html { redirect_to store_index_url }
-        format.js { @current_item = @line_item;
-                    @product = product;
-                  }
-        format.json {  }
+        format.js { @current_item = @line_item; @product = product }
+        format.json { }
       else
+        
         if @line_item.save
           format.html { redirect_to store_index_url }
-          format.js { @current_item = @line_item; @product = product; }
-          format.json {  }
+          format.js { @current_item = @line_item; @product = product }
+          format.json { }
         else
           format.json { render json: @line_item.errors, status: :unprocessable_entity }
         end
@@ -61,7 +73,6 @@ class LineItemsController < ApplicationController
   # POST /line_items
   # POST /line_items.json
   def create
-
     product = Product.find(params[:product_id])
     @line_item = @cart.add_product(product)
     respond_to do |format|
@@ -70,11 +81,9 @@ class LineItemsController < ApplicationController
         product.popularity = product.popularity + 1
         product.update_attribute(:popularity, product.popularity)
         format.html { redirect_to store_index_url }
-        
         format.js { @current_item = @line_item; @product = product }
         format.json {  }  
       else
-        format.html { render :new}
         format.json { render json: @line_item.errors, status: :unprocessable_entity }
       end
     end
@@ -105,12 +114,6 @@ class LineItemsController < ApplicationController
     end
   end
 
-  def show_orders_for_seller
-    seller = Seller.find(params[:id])  
-
-    authorize seller, :show_orders_for_seller?
-  end
-    
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_line_item

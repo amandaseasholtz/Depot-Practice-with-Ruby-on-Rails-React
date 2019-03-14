@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
-  include CurrentCart
   skip_before_action :verify_authenticity_token
+  include CurrentCart
   before_action :set_cart, only: [:new, :create]
   before_action :ensure_cart_isnt_empty, only: [:new, :create]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
@@ -13,22 +13,23 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-  #  if (params[:buyer_id])
-  #    @buyer = Buyer.find(params[:buyer_id])
-  #    @orders = @buyer.orders.order('created_at desc').page params[:page]
-  #  else
-  #    @orders = Order.all
-  #    @orders = @orders.order('created_at desc').page params[:page]
-  #  end   
-  authorize Order 
-    @orders = policy_scope(Order)
-    @orders = @orders.order('created_at desc').page params[:page] 
-end  
+    if (params[:buyer_id])
+      @buyer = Buyer.find(params[:buyer_id])
+      @orders = @buyer.orders.order('created_at desc').page params[:page]
+    else
+      @orders = Order.all
+      @orders = @orders.order('created_at desc').page params[:page]
+    end    
+    # Causing problems, so commented out.
+    #authorize Order 
+    #@orders = policy_scope(Order)
+    #@orders = @orders.order('created_at desc').page params[:page]
+  end  
 
   # GET /orders/1
   # GET /orders/1.json
   def show
-    authorize @order 
+    authorize @order
     @products = @order.products
   end
 
@@ -36,19 +37,19 @@ end
   def new
     @order = Order.new
     authorize @order
-
     if current_account && current_account.accountable_type == "Buyer"
-        @order.name     = current_account.accountable.name
-        @order.address  = current_account.accountable.address
-        @order.email  = current_account.email
-        @order.pay_type = current_account.accountable.pay_type.to_i
+      @order.name     = current_account.accountable.name
+      @order.address  = current_account.accountable.address
+      @order.email  = current_account.email
+      @order.pay_type = current_account.accountable.pay_type.to_i
     end
 
     respond_to do |format|
       format.html
       format.json { render json: {"redirect":true,"redirect_url": new_order_path }}
     end
-end
+  end
+
   # GET /orders/1/edit
   def edit
     authorize @order
@@ -58,20 +59,19 @@ end
   # POST /orders.json
   def create
     @order = Order.new(order_params)
-    authorize @order 
+    authorize @order
     @order.add_line_items_from_cart(@cart)
 
     if current_account && current_account.accountable_type == "Buyer"
-            @order.buyer = current_account.accountable
+      @order.buyer = current_account.accountable
     end
 
     respond_to do |format|
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-        #OrderNotifierMailer.received(@order).deliver
-        format.html { redirect_to store_index_url, notice:
-            'Thank you for your order.' }
+        # OrderNotifierMailer.received(@order).deliver
+        format.html { redirect_to store_index_url, notice: 'Thank you for your order.' }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
@@ -83,7 +83,7 @@ end
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update
-    authorize @order 
+    authorize @order
     respond_to do |format|
       if @order.update(order_params)
         format.html { redirect_to @order, notice: 'Order was successfully updated.' }
@@ -95,19 +95,10 @@ end
     end
   end
 
-  def show_orders_for_seller
-    seller = Seller.find(params[:id])   
-    products = seller.products
-    @line_items = LineItem.where(product_id: products)
-    products.each do |product|
-      logger.info(product)
-    end
-end 
-
   # DELETE /orders/1
   # DELETE /orders/1.json
   def destroy
-    authorize @order 
+    authorize @order
     @order.destroy
     respond_to do |format|
       format.html { redirect_to orders_url, notice: 'Order was successfully destroyed.' }
@@ -126,6 +117,18 @@ end
       params.require(:order).permit(:name, :address, :email, :pay_type)
     end
 
+    def pay_type_params
+      if order_params[:pay_type] == "Credit Card"
+        params.require(:order).permit(:credit_card_number, :expiration_date)
+      elsif order_params[:pay_type] == "Check"
+        params.require(:order).permit(:routing_number, :account_number)
+      elsif order_params[:pay_type] == "Purchase Order"
+        params.require(:order).permit(:po_number)
+      else
+        {}
+      end
+    end
+
     def ensure_cart_isnt_empty
       if @cart.line_items.empty?
         respond_to do |format|
@@ -136,8 +139,8 @@ end
     end
 
     def invalid_order
-      logger.error "Attempt to access invalid order #{params[:id]}"
+      logger.error "Attempt to place invalid order #{params[:id]}"
       redirect_to store_index_url, notice: "Invalid order"
     end
 
-  end
+end

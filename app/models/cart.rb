@@ -12,10 +12,16 @@ class Cart < ApplicationRecord
     end
 
     def remove_line_item(product)
-        current_item = line_items.find_by(product_id: product.id)
-        current_item.quantity -= 1
+        item = line_items.find_by(product_id: product.id)
+        item.quantity -= 1
         
-        current_item
+        item
+    end
+
+    def emtpy_cart_popularity(line_item)
+        line_item.product.popularity = (line_item.product.popularity - line_item.quantity)
+        line_item.product.update_attribute(:popularity, line_item.product.popularity)
+        line_item.product.save
     end
     
     def total_price
