@@ -1,7 +1,7 @@
-$('#notice').hide();
-
 $('#product_<%=@product.id%>').html("<%= j render @product %>");
 
 $('#cart').html("<%=j render @cart %>");
 
-$('#cart').show();
+if(<%= @hide_cart %>) {
+  $('#cart').hide();
+}

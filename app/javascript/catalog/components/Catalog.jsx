@@ -76,7 +76,7 @@ export default class Catalog extends React.Component {
             <SearchForm handleSearch={this.handleSearch} />
          </div>
          <h3>
-            
+            There are {this.state.books.length} books in the catalog.
          </h3>
          <div className="row">
             <BookList books={this.state.books}

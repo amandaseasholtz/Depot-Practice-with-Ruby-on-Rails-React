@@ -1,5 +1,5 @@
 <% if notice %>
-  <aside id="notice"> <%=notice%> </aside>
+  <aside id="notice"><%= notice %></aside>
 <% end %>
 <h1>Products</h1>
 <table>
@@ -14,21 +14,27 @@
     <% @products.each do |product| %>
       <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
         <td class="image">
-          <%= image_tag(product.image_url.url) if product.image_url.present? %>
+          <%= image_tag product.image_url.url, width: '100%' if product.image_url.present? %>
+
         </td>
         <td class="description">
           <h1><%= product.title %></h1>
           <p>
-            <%= truncate(strip_tags(product.description),
-            length: 80) %>
-          </p>
+          <%= truncate(strip_tags(product.description),
+                       length: 80) %>
+        </p>
+        <p><b><i>popularity <%= product.popularity.to_i  %></i></b></p>
         </td>
         <td class="actions">
           <ul>
             <li><%= link_to 'Show', product %></li>
             <li><%= link_to 'Edit', edit_product_path(product) %></li>
-            <li> <%= link_to 'Destroy', product, 
-              method: :delete, data: { confirm: 'Are you sure?' } %> </li>
+            <li>
+              <%= link_to 'Destroy',
+                product,
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %>
+          </li>
           </ul>
         </td>
       </tr>

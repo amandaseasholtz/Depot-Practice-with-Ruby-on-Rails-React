@@ -2,47 +2,48 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .carts {
-    padding: 1em; 
-    table {
+  padding: 1em; // and needs more padding
+  table {
     border-collapse: collapse;
-    }
-    td {
+  }
+  td {
     padding: 0.5em;
-    }
-    td.quantity {
+  }
+  td.quantity {
     white-space: nowrap;
-    }
-    td.quantity::after {
+  }
+  td.quantity::after {
     content: " ×";
-    }
-    td.price {
+  }
+  td.price {
     font-weight: bold;
     text-align: right;
-    }
-    tfoot {
+  }
+  tfoot {
     th, td.price {
-    font-weight: bold;
-    padding-top: 1em;
+      font-weight: bold;
+      padding-top: 1em;
     }
     th {
-    text-align: right;
+      text-align: right;
     }
     td.price {
-    border-top: solid thin;
+      border-top: solid thi
+      n;
     }
-    }
-    input[type="submit"] {
+  }
+  .actions .button_to{
+    display: inline-block;
+  }
+  input[type="submit"] {
     background-color: #881;
     border-radius: 0.354em;
     border: solid thin #441;
     color: white;
     font-size: 1em;
     padding: 0.354em 1em;
-    }
-    input[type="submit"]:hover {
+  }
+  input[type="submit"]:hover {
     background-color: #992;
-    }
-    .actions .button_to {
-        display: inline-block;
-    }
+  }
 }
