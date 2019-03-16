@@ -2,27 +2,26 @@
 <html>
   <head>
     <title>Pragprog Books Online Store</title>
-    <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag 'application', media: 'all',
-      'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application',
-      'data-turbolinks-track': 'reload' %>
-</head>
-<body>
+      <%= csrf_meta_tags %>
+      <%= stylesheet_link_tag 'application', media: 'all','data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'application',
+        'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
   <header class="main">
     <%= render 'layouts/navigation' %>
-    <!-- <h1><%= @page_title %></h1> -->
   </header>
   <section class="content">
-    <%if @spa.nil?%>
+    <% if @spa.nil? %>
       <nav class="side_nav">
-          <div id="cart" class="carts">
-            <%= render_if @cart && @cart.line_items.any?, @cart %>
-          </div>
-        </nav>
-        <% end %>
-    <main class='<%= controller.controller_name %>' style="width:100%">
-    <%= yield %>
+        <div id="cart">
+          <%= render_if @cart && @cart.line_items.any?, @cart %>
+        </div>
+      </nav>
+    <% end %>
+    <main class='<%= controller.controller_name %>'>
+      <%= yield %>
     </main>
   </section>
 </body>

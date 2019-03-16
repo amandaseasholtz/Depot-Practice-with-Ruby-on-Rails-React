@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+    <aside id="notice"><%= notice %></aside>
+<% end %>
 
 <% if account_signed_in? and ( current_account.accountable_type == "Seller" or current_account.accountable_type == "SuperAccount")%>
     <%= content_tag :div,
