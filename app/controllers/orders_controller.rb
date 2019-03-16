@@ -44,7 +44,7 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
-    authorize @order
+
     if current_account && current_account.accountable_type == "Buyer"
         @order.name     = current_account.accountable.name
         @order.address  = current_account.accountable.address
@@ -59,7 +59,6 @@ end
 
   # GET /orders/1/edit
   def edit
-    authorize @order
   end
 
   # POST /orders

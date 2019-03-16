@@ -61,6 +61,22 @@ export default class OrderForm extends React.Component {
         this.setState( {pay_type: selected_pay_type});
     }
 
+    checkout= () => {
+        var self = this;
+    
+        axios.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
+        axios.post('/orders', {product_id: id})
+          .then(function (response) {
+            console.log(response.data);
+            window.location = response.headers.location;
+          })
+          .catch(function (error) {
+            // console.log(error);
+            alert('Cannot checkout: ', error);
+        });
+    
+    };
+
     render = () => {
         const { errors } = this.state;
         console.log(errors)
@@ -162,6 +178,8 @@ export default class OrderForm extends React.Component {
                         <input
                             type="submit"
                             className="btn btn-success"
+                            onClick={this.checkout} 
+                            Empty Cart
                         />
                         &nbsp;
                         <Link className="btn btn-success" to={{pathname:"/", true_cart_id: true_cart_id }}>

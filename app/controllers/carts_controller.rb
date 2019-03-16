@@ -42,7 +42,7 @@ class CartsController < ApplicationController
         format.json { render :show, status: :created, location: @cart }
       else
         format.html { render :new }
-        format.json { render json: @cart.errors, status: :unprocessable_entity }
+        format.json { render json: @cart.errors, status: unprocessable_entity }
       end
     end
   end
