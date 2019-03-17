@@ -10,7 +10,7 @@ class Order < ApplicationRecord
         "Purchase order" => 2
     }
 
-    validates :name, :address, :email, :pay_type, presence: true
+    #validates :name, :address, :email, :pay_type, presence: true
     validates :email, format: {with: URI::MailTo::EMAIL_REGEXP}
     validates :pay_type, inclusion: pay_types.keys
 

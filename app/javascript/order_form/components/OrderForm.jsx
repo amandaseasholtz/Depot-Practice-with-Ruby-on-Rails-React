@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 import Cart from '../../catalog/components/Cart';
-import PayTypeSelector from './pay_type_selector';
+import PayTypeSelector from './PayTypeSelector';
 import classnames from "classnames";
 
 export default class OrderForm extends React.Component {
@@ -61,22 +61,6 @@ export default class OrderForm extends React.Component {
         this.setState({ pay_type: selected_pay_type });
     }
 
-    checkout= () => {
-        var self = this;
-    
-        axios.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
-        axios.post('/orders', {product_id: id})
-          .then(function (response) {
-            console.log(response.data);
-            window.location = response.headers.location;
-          })
-          .catch(function (error) {
-            // console.log(error);
-            alert('Cannot checkout: ', error);
-        });
-    
-    };
-
     render = () => {
         const { errors } = this.state;
         console.log(errors)
@@ -114,7 +98,7 @@ export default class OrderForm extends React.Component {
                             )}
                             placeholder="Name"
                             name="name"
-                            value={this.state.name}
+                            value={this.props.name}
                             onChange={this.onInputChange}
                         />
                         {errors.name && (
@@ -132,7 +116,7 @@ export default class OrderForm extends React.Component {
                             )}
                             placeholder="Address"
                             name="address"
-                            value={this.state.address}
+                            value={this.props.address}
                             onChange={this.onInputChange}
                         />
                         {errors.address && (
@@ -165,7 +149,7 @@ export default class OrderForm extends React.Component {
 
                     <div className="form-group">
                         <div>
-                            <PayTypeSelector handleSelectPayType={this.handleSelectPayType} />
+                            <PayTypeSelector handleSelectPayType={this.handleSelectPayType} pay_type={this.props.pay_type} />
                         </div>
                         {errors.pay_type && (
                             <div className="invalid-feedback" style={{ display: "block" }}>
@@ -179,7 +163,7 @@ export default class OrderForm extends React.Component {
                         <input
                             type="submit"
                             className="btn btn-success"
-                            onClick={this.checkout} 
+                            onClick={this.checkout}
                             Empty Cart
                         />
                         &nbsp;
