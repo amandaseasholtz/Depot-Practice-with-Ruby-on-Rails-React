@@ -6,12 +6,15 @@
     <%= content_tag :div,
             id: "catalog",
             seller: true,
+            name: current_account.accountable.name,
+            address: current_account.accountable.address,
+            email: current_account.email,
+            pay_type: current_account.accountable.pay_type,
             cart_id: @cart.id  do %>
 
        <%= javascript_pack_tag 'catalog' %>
     <% end %>
-<%else %>
-
+<% else if account_signed_in? %>
     <%= content_tag :div,
             id: "catalog",
             seller: false,
@@ -20,7 +23,16 @@
             email: current_account.email,
             pay_type: current_account.accountable.pay_type,
             cart_id: @cart.id  do %>
+
+        <%= javascript_pack_tag 'catalog' %>
+    <% end %>
+<% else %>
+    <%= content_tag :div,
+            id: "catalog",
+            seller: false,
+            cart_id: @cart.id  do %>
                 
        <%= javascript_pack_tag 'catalog' %>
     <% end %>
+ <% end %>
 <% end %>
