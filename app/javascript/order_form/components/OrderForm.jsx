@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 import Cart from '../../catalog/components/Cart';
-import PayTypeSelector from './PayTypeSelector';
+import PayTypeSelector from './pay_type_selector';
 import classnames from "classnames";
 
 export default class OrderForm extends React.Component {
