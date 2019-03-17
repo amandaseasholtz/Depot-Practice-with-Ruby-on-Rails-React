@@ -5,7 +5,7 @@ import CreditCardPayType from './CreditCardPayType';
 import CheckPayType from './CheckPayType';
 import PurchaseOrderPayType from './PurchaseOrderPayType';
 
-export default class PayTypeSelector extends React.Component {
+export default class pay_type_selector extends React.Component {
   constructor(props) {
     super(props);
     this.onPayTypeSelected = this.onPayTypeSelected.bind(this);
