@@ -149,7 +149,7 @@ export default class OrderForm extends React.Component {
 
                     <div className="form-group">
                         <div>
-                            <pay_type_selector handleSelectPayType={this.handleSelectPayType} pay_type={this.props.pay_type} />
+                            <PayTypeSelector handleSelectPayType={this.handleSelectPayType} pay_type={this.props.pay_type} />
                         </div>
                         {errors.pay_type && (
                             <div className="invalid-feedback" style={{ display: "block" }}>
